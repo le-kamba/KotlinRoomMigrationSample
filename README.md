@@ -1,5 +1,5 @@
 # KotlinRoomMigrationSample
-Sample for migrating SQLiteDatabase to Room with kotlin.
+Sample for migrating SQLiteDatabase to Room with Kotlin.
 
 ## About this project.
 このサンプルは、Google公式のSQLiteDatabaseからRoomへの移行サンプルをKotlinに移植したものです。
@@ -15,6 +15,10 @@ This project was forked from Google's migration sample.
 ### master
 オリジナルのJavaのサンプルコードそのままです。
 Same as original Java sample.
+
+### Robolectric
+androidTestにあるソースをtestに移動し、Robolectricで動くようにしました。
+Migrate androidTests to unit test by using Robolectric.
 
 ### kotlin
 Kotlinに変換したサンプルです。

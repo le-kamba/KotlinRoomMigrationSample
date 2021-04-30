@@ -35,7 +35,12 @@ android {
             }
         }
     }
-
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -43,7 +48,7 @@ android {
 
     // used by Room, to test migrations
     sourceSets {
-        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+        debug.assets.srcDirs += files("$projectDir/schemas".toString())
 
         // used by the room flavors to avoid duplication
         room.java.srcDirs += "src/room_common/java"
@@ -51,6 +56,7 @@ android {
         room3.java.srcDirs += "src/room_common/java"
 
         androidTest.java.srcDirs += "src/androidTestRoom_Common/java"
+        test.java.srcDirs += "src/testRoom_Common/java"
     }
 
     buildTypes {
@@ -116,4 +122,22 @@ dependencies {
     androidTestImplementation deps.annotations
     androidTestImplementation deps.app_compat
     androidTestImplementation deps.material
+
+    // Add Robolectric
+    testImplementation 'org.robolectric:robolectric:4.5.1'
+
+    testImplementation deps.atsl.ext_junit
+    testImplementation deps.atsl.runner
+    testImplementation deps.atsl.rules
+    testImplementation deps.room.testing
+    testImplementation deps.arch_core.testing
+
+}
+
+gradle.taskGraph.useFilter { task ->
+    if (task.name.startsWith("test") && task.name.contains("ReleaseUnitTest")) {
+        return false;
+    }
+
+    return true;
 }
