@@ -16,7 +16,7 @@ This project was forked from Google's migration sample.
 オリジナルのJavaのサンプルコードそのままです。
 Same as original Java sample.
 
-### Robolectric
+### robolectric
 androidTestにあるソースをtestに移動し、Robolectricで動くようにしました。
 Migrate androidTests to unit test by using Robolectric.
 
