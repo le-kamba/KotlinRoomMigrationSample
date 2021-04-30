@@ -88,6 +88,8 @@ public class MigrationTest {
         User dbUser = latestDb.userDao().getUser();
         assertEquals(dbUser.getId(), USER.getId());
         assertEquals(dbUser.getUserName(), USER.getUserName());
+
+        latestDb.close();
     }
 
     @Test
@@ -105,11 +107,14 @@ public class MigrationTest {
         User dbUser = usersDatabase.userDao().getUser();
         assertEquals(dbUser.getId(), USER.getId());
         assertEquals(dbUser.getUserName(), USER.getUserName());
+
+        usersDatabase.close();
     }
 
     private UsersDatabase getMigratedRoomDatabase() {
         UsersDatabase database = Room.databaseBuilder(ApplicationProvider.getApplicationContext(),
                 UsersDatabase.class, TEST_DB_NAME)
+                .allowMainThreadQueries()
                 .addMigrations(MIGRATION_1_2)
                 .build();
         // close the database and release any stream resources when the test finishes

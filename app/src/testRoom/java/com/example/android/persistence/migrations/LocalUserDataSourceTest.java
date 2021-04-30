@@ -16,18 +16,22 @@
 
 package com.example.android.persistence.migrations;
 
-import static junit.framework.Assert.assertNull;
-
-import static org.junit.Assert.assertEquals;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Integration tests for the {@link LocalUserDataSource} implementation with Room.
  */
+@RunWith(AndroidJUnit4.class)
 public class LocalUserDataSourceTest {
 
     private static final User USER = new User(1, "username");
@@ -40,7 +44,7 @@ public class LocalUserDataSourceTest {
         // using an in-memory database because the information stored here disappears when the
         // process is killed
         mDatabase = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
-                UsersDatabase.class).build();
+                UsersDatabase.class).allowMainThreadQueries().build();
         mDataSource = new LocalUserDataSource(mDatabase.userDao());
     }
 
